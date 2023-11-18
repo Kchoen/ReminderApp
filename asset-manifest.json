@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/ReminderApp/static/css/main.f0601580.css",
+    "main.js": "/ReminderApp/static/js/main.befc210d.js",
+    "static/media/alarm.mp3": "/ReminderApp/static/media/alarm.185e3beb598436314a21.mp3",
+    "index.html": "/ReminderApp/index.html",
+    "main.f0601580.css.map": "/ReminderApp/static/css/main.f0601580.css.map",
+    "main.befc210d.js.map": "/ReminderApp/static/js/main.befc210d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f0601580.css",
+    "static/js/main.befc210d.js"
+  ]
+}
