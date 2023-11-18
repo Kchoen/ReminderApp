@@ -81,19 +81,25 @@ function CalendarForm({ waterLog, setWaterLog }) {
 				tileContent={({ date }) => {
 					const amount = getTotal(formatDate(date));
 					return currentView.view === "month" ? (
-						<>
-							<br />
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+							}}
+						>
 							<span
 								style={{
 									border: "1.5px solid #d41ffd",
 									borderRadius: "5px",
-									padding: "2px",
-									fontSize: "1em",
+									width: "3em",
+									fontSize: "0.7em",
+									justifyContent: "center",
 								}}
 							>
-								{amount} c.c.
+								{amount}
 							</span>
-						</>
+						</div>
 					) : (
 						<></>
 					);

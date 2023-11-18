@@ -30,7 +30,7 @@ function App() {
 		],
 	});
 	const [show, setShow] = useState(false);
-	const [quantity, setQuantity] = useState(150);
+	const [quantity, setQuantity] = useState(200);
 	function addWater(amount, time) {
 		const drinkDate = formatDate(new Date()); // helper
 		const drinkTime = formatTime(new Date());
@@ -70,29 +70,29 @@ function App() {
 			>
 				<button
 					className="btn btn-warning"
-					style={{ margin: "auto", width: "20%" }}
+					style={{ margin: "auto", width: "30%" }}
 					onClick={() => setView("calendar")}
 				>
-					我的喝水紀錄
+					喝水情形
 				</button>
 				<button
 					className="btn btn-warning"
-					style={{ margin: "auto", width: "20%" }}
+					style={{ margin: "auto", width: "30%" }}
 					onClick={() => setShow(true)}
 				>
 					喝水
 				</button>
 				<button
 					className="btn btn-warning"
-					style={{ margin: "auto", width: "20%" }}
+					style={{ margin: "auto", width: "30%" }}
 					onClick={() =>
 						setTimeout(() => {
 							alarm.play();
 							alarm.loop = false;
-						}, 1000 * 60 * 60)
+						}, 1000)
 					}
 				>
-					設定久坐提醒
+					設定提醒
 				</button>
 			</nav>
 
@@ -150,6 +150,7 @@ function App() {
 								style={{ fontSize: "1.5em" }}
 								onClick={() => {
 									addWater(quantity, new Date());
+									setQuantity(200);
 									setShow(false);
 									setView("calendar");
 								}}

@@ -52,6 +52,7 @@ code {
 	padding: 10px 6.6667px;
 	border-radius: 8px;
 	border-color: #1e539e2f;
+	justify-content: center;
 }
 .react-calendar__tile--now {
 	border: 2px solid #000000 !important;
