@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button } from "react-bootstrap";
-import { FaGlassWater, FaPlus, FaMinus } from "react-icons/fa6";
 import CalendarForm from "./Component/Calendar";
 import SettingForm from "./Component/Setting";
 import DrinkInput from "./Component/DrinkInput";
 import sound from "./alarm.mp3";
 const alarm = new Audio(sound);
-
 function App() {
 	// App local stuff
 	const [view, setView] = useState("calendar");
@@ -30,6 +27,30 @@ function App() {
 		setIntervalOn: setIntervalOn,
 		setInterval: setInterval,
 	};
+	const packedstate = {
+		waterLog: waterLog,
+		cronOn: cronOn,
+		cronOnTime: cronOnTime,
+		cronOffTime: cronOffTime,
+		intervalOn: intervalOn,
+		interval: interval,
+	};
+
+	// save state
+	useEffect(() => {
+		if (Object.keys(waterLog).length > 0) {
+			localStorage.setItem("waterLog", JSON.stringify(waterLog));
+		}
+	}, [waterLog]);
+
+	// load state
+	useEffect(() => {
+		const storedwaterLog = JSON.parse(localStorage.getItem("waterLog"));
+		if (storedwaterLog != null) {
+			setWaterLog(storedwaterLog);
+		}
+	}, []);
+
 	// useEffect(() => {
 	// 	// Load drinks from localStorage on mount
 	// 	const storedwaterLog = JSON.parse(localStorage.getItem("waterLog"));
