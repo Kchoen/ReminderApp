@@ -82,13 +82,13 @@ function App() {
 				>
 					喝水情形
 				</button>
-				{/* <button
+				<button
 					className="btn btn-warning"
 					style={{ margin: "auto", width: "30%" }}
 					onClick={() => setView("setting")}
 				>
 					設定
-				</button> */}
+				</button>
 				<button
 					className="btn btn-warning"
 					style={{ margin: "auto", width: "30%" }}
