@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/ReminderApp/static/css/main.6d6cdfcd.css",
-    "main.js": "/ReminderApp/static/js/main.43f9dbd0.js",
+    "main.css": "/ReminderApp/static/css/main.480800de.css",
+    "main.js": "/ReminderApp/static/js/main.3369aa7b.js",
     "static/media/alarm.mp3": "/ReminderApp/static/media/alarm.185e3beb598436314a21.mp3",
     "index.html": "/ReminderApp/index.html",
-    "main.6d6cdfcd.css.map": "/ReminderApp/static/css/main.6d6cdfcd.css.map",
-    "main.43f9dbd0.js.map": "/ReminderApp/static/js/main.43f9dbd0.js.map"
+    "main.480800de.css.map": "/ReminderApp/static/css/main.480800de.css.map",
+    "main.3369aa7b.js.map": "/ReminderApp/static/js/main.3369aa7b.js.map"
   },
   "entrypoints": [
-    "static/css/main.6d6cdfcd.css",
-    "static/js/main.43f9dbd0.js"
+    "static/css/main.480800de.css",
+    "static/js/main.3369aa7b.js"
   ]
 }
