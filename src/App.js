@@ -64,7 +64,7 @@ function App() {
 				alarm.play();
 				alarm.loop = false;
 			}
-		}, inter * 1000);
+		}, inter * 60 * 1000);
 		return () => clearInterval(setClock);
 	}, [intervalOn]);
 	useEffect(() => {
