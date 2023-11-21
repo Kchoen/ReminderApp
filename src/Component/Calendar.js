@@ -2,7 +2,7 @@ import Calendar from "react-calendar";
 import React, { useState } from "react";
 import LogModal from "./LogModal";
 
-function CalendarForm({ waterLog }) {
+function CalendarForm({ waterLog, foodLog, setFoodLog }) {
 	// local state
 	const [currentView, setCurrentView] = useState({
 		view: "month",
@@ -90,6 +90,8 @@ function CalendarForm({ waterLog }) {
 				logs={selectLog()}
 				showLogModal={showLogModal}
 				setShowLogModal={setShowLogModal}
+				foodLog={foodLog}
+				setFoodLog={setFoodLog}
 			/>
 		</>
 	);

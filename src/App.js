@@ -10,6 +10,7 @@ function App() {
 	const [view, setView] = useState("calendar");
 	const [showDrink, setShowDrink] = useState(false);
 	// saving records
+	const [foodLog, setFoodLog] = useState({});
 	const [waterLog, setWaterLog] = useState({});
 	const [cronOn, setCronOn] = useState(false);
 	const [cronOnTime, setCronOnTime] = useState(null);
@@ -35,12 +36,23 @@ function App() {
 			localStorage.setItem("waterLog", JSON.stringify(waterLog));
 		}
 	}, [waterLog]);
+	useEffect(() => {
+		if (Object.keys(foodLog).length > 0) {
+			localStorage.setItem("foodLog", JSON.stringify(foodLog));
+		}
+	}, [foodLog]);
 
 	// load state
 	useEffect(() => {
 		const storedwaterLog = JSON.parse(localStorage.getItem("waterLog"));
 		if (storedwaterLog != null) {
 			setWaterLog(storedwaterLog);
+		}
+	}, []);
+	useEffect(() => {
+		const storedfoodLog = JSON.parse(localStorage.getItem("foodLog"));
+		if (storedfoodLog != null) {
+			setFoodLog(storedfoodLog);
 		}
 	}, []);
 
@@ -135,7 +147,11 @@ function App() {
 						margin: "auto",
 					}}
 				>
-					<CalendarForm waterLog={waterLog} />
+					<CalendarForm
+						waterLog={waterLog}
+						foodLog={foodLog}
+						setFoodLog={setFoodLog}
+					/>
 				</div>
 			)}
 
