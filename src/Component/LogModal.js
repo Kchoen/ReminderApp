@@ -4,34 +4,35 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 
 function LogModal({
-	logs,
 	showLogModal,
 	setShowLogModal,
-	foodLog,
+	logDate,
+	waterLog,
+	temp,
+	setTemp,
 	setFoodLog,
 }) {
 	const [activeTab, setActiveTab] = useState("drink");
 
-	const [tempMorning, setTempMorning] = useState(foodLog.morning);
-	const [tempLunch, setTempLunch] = useState(foodLog.lunch);
-	const [tempDiner, setTempDiner] = useState(foodLog.diner);
-	const [tempOthers, setTempOthers] = useState(foodLog.others);
+	const waterReport = waterLog[logDate] ? waterLog[logDate] : [];
 	const total =
-		logs?.reduce((tot, entry) => {
+		waterReport?.reduce((tot, entry) => {
 			return tot + entry.amount;
 		}, 0) || 0;
-	// return (
-	// 	<Modal
-	// 		show={showLogModal}
-	// 		onHide={() => setShowLogModal(false)}
-	// 		centered
-	// 	>
-	// 		<Modal.Header>飲水報告</Modal.Header>
-	// 		<Modal.Body>
-	//
-	// 		</Modal.Body>
-	// 	</Modal>
-	// );
+	const saveFood = () => {
+		setFoodLog((prev) => {
+			// helper
+			return {
+				...prev,
+				[logDate]: {
+					Morning: temp.Morning,
+					Lunch: temp.Lunch,
+					Diner: temp.Diner,
+					Others: temp.Others,
+				},
+			};
+		});
+	};
 	return (
 		<Modal
 			show={showLogModal}
@@ -45,7 +46,7 @@ function LogModal({
 					<Modal.Body>
 						<h2>總和：{total} C.C.</h2>
 
-						{logs.map((log) => (
+						{waterReport.map((log) => (
 							<div>
 								在{log.drinkTime}的時候，喝了{log.amount} C.C.
 							</div>
@@ -58,9 +59,14 @@ function LogModal({
 						<h3>
 							早餐：
 							<input
-								value={tempMorning}
+								value={temp.Morning}
 								onChange={(e) => {
-									setTempMorning(e.target.value);
+									setTemp((prev) => {
+										return {
+											...prev,
+											Morning: e.target.value,
+										};
+									});
 								}}
 							/>
 						</h3>
@@ -68,27 +74,42 @@ function LogModal({
 						<h3>
 							午餐：
 							<input
-								value={tempLunch}
+								value={temp.Lunch}
 								onChange={(e) => {
-									setTempLunch(e.target.value);
+									setTemp((prev) => {
+										return {
+											...prev,
+											Lunch: e.target.value,
+										};
+									});
 								}}
 							/>
 						</h3>
 						<h3>
 							晚餐：
 							<input
-								value={tempDiner}
+								value={temp.Diner}
 								onChange={(e) => {
-									setTempDiner(e.target.value);
+									setTemp((prev) => {
+										return {
+											...prev,
+											Diner: e.target.value,
+										};
+									});
 								}}
 							/>
 						</h3>
 						<h3>
 							其他：
 							<input
-								value={tempOthers}
+								value={temp.Others}
 								onChange={(e) => {
-									setTempOthers(e.target.value);
+									setTemp((prev) => {
+										return {
+											...prev,
+											Others: e.target.value,
+										};
+									});
 								}}
 							/>
 							{""}
@@ -98,16 +119,18 @@ function LogModal({
 			</Tabs>
 
 			<Modal.Footer>
-				<Button variant="secondary">Close</Button>
+				<Button
+					variant="secondary"
+					onClick={() => {
+						setShowLogModal(false);
+					}}
+				>
+					Close
+				</Button>
 				<Button
 					variant="primary"
 					onClick={() => {
-						setFoodLog({
-							morning: tempMorning,
-							lunch: tempLunch,
-							diner: tempDiner,
-							others: tempOthers,
-						});
+						saveFood();
 						setShowLogModal(false);
 					}}
 				>

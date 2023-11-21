@@ -10,17 +10,30 @@ function CalendarForm({ waterLog, foodLog, setFoodLog }) {
 	});
 	const [selectDate, setSelectDate] = useState(new Date());
 	const [showLogModal, setShowLogModal] = useState(false);
+	// food log state
+	const [temp, setTemp] = useState({
+		Morning: "",
+		Lunch: "",
+		Diner: "",
+		Others: "",
+	});
 
 	// Simple function
 	function OpenWaterLog(date) {
 		setSelectDate(date);
+		setTemp(
+			foodLog[formatDate(date)]
+				? foodLog[formatDate(date)]
+				: {
+						Morning: "",
+						Lunch: "",
+						Diner: "",
+						Others: "",
+				  }
+		);
 		setShowLogModal(true);
 	}
-	function selectLog() {
-		return waterLog[formatDate(selectDate)]
-			? waterLog[formatDate(selectDate)]
-			: [];
-	}
+
 	function getTotal(date) {
 		return (
 			waterLog[date]?.reduce((tot, entry) => {
@@ -87,10 +100,12 @@ function CalendarForm({ waterLog, foodLog, setFoodLog }) {
 				}}
 			/>
 			<LogModal
-				logs={selectLog()}
 				showLogModal={showLogModal}
 				setShowLogModal={setShowLogModal}
-				foodLog={foodLog}
+				logDate={formatDate(selectDate)}
+				waterLog={waterLog}
+				temp={temp}
+				setTemp={setTemp}
 				setFoodLog={setFoodLog}
 			/>
 		</>

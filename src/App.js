@@ -56,7 +56,7 @@ function App() {
 		}
 	}, []);
 
-	// set clock
+	// set clock & cron
 	useEffect(() => {
 		if (!intervalOn) return;
 		let setClock = setInterval(() => {
