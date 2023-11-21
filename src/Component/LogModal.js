@@ -56,9 +56,10 @@ function LogModal({
 
 				<Tab eventKey="food" title="飲食紀錄">
 					<Modal.Body>
-						<h3>
+						<h4>
 							早餐：
 							<input
+								style={{ fontSize: "1rem", width: "80%" }}
 								value={temp.Morning}
 								onChange={(e) => {
 									setTemp((prev) => {
@@ -69,11 +70,12 @@ function LogModal({
 									});
 								}}
 							/>
-						</h3>
+						</h4>
 
-						<h3>
+						<h4>
 							午餐：
 							<input
+								style={{ fontSize: "1rem", width: "80%" }}
 								value={temp.Lunch}
 								onChange={(e) => {
 									setTemp((prev) => {
@@ -84,10 +86,11 @@ function LogModal({
 									});
 								}}
 							/>
-						</h3>
-						<h3>
+						</h4>
+						<h4>
 							晚餐：
 							<input
+								style={{ fontSize: "1rem", width: "80%" }}
 								value={temp.Diner}
 								onChange={(e) => {
 									setTemp((prev) => {
@@ -98,10 +101,12 @@ function LogModal({
 									});
 								}}
 							/>
-						</h3>
-						<h3>
+						</h4>
+						<h4>
 							其他：
-							<input
+							<textarea
+								rows={3}
+								style={{ fontSize: "1rem", width: "80%" }}
 								value={temp.Others}
 								onChange={(e) => {
 									setTemp((prev) => {
@@ -113,7 +118,7 @@ function LogModal({
 								}}
 							/>
 							{""}
-						</h3>
+						</h4>
 					</Modal.Body>
 				</Tab>
 			</Tabs>

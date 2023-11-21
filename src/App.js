@@ -112,21 +112,21 @@ function App() {
 			>
 				<button
 					className="btn btn-warning"
-					style={{ margin: "auto", width: "40%", fontSize: "1rem" }}
+					style={{ margin: "auto", width: "40%", fontSize: "1.1rem" }}
 					onClick={() => setView("calendar")}
 				>
 					喝水情形
 				</button>
 				<button
 					className="btn btn-warning"
-					style={{ margin: "auto", width: "25%", fontSize: "1rem" }}
+					style={{ margin: "auto", width: "25%", fontSize: "1.1rem" }}
 					onClick={() => setView("setting")}
 				>
 					設定
 				</button>
 				<button
 					className="btn btn-warning"
-					style={{ margin: "auto", width: "25%", fontSize: "1rem" }}
+					style={{ margin: "auto", width: "25%", fontSize: "1.1rem" }}
 					onClick={() => {
 						setView("calendar");
 						setShowDrink(true);
