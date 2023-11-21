@@ -13,7 +13,7 @@ code {
 		monospace;
 }
 .react-calendar {
-	width: 100%;
+	width: 100vw;
 	background-color: #ff5e001e;
 	color: #222;
 	border-radius: 5px;
@@ -46,7 +46,7 @@ code {
 	text-align: center;
 	text-transform: uppercase;
 	font-weight: bold;
-	font-size: 1.2em;
+	font-size: 1.2rem;
 }
 
 .react-calendar__tile {

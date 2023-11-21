@@ -52,7 +52,7 @@ function App() {
 				alarm.play();
 				alarm.loop = false;
 			}
-		}, 5 * 1000);
+		}, inter * 1000);
 		return () => clearInterval(setClock);
 	}, [intervalOn]);
 	useEffect(() => {
@@ -76,7 +76,7 @@ function App() {
 			) {
 				setIntervalOn(true);
 			}
-		}, 3 * 1000);
+		}, 30 * 1000);
 		return () => clearInterval(checkCron);
 	}, [cronOn]);
 
@@ -93,28 +93,28 @@ function App() {
 			<nav
 				className="navbar navbar-light"
 				style={{
-					height: "10%",
+					height: "13%",
 					display: "flex",
 					backgroundColor: "#e3f2fd",
 				}}
 			>
 				<button
 					className="btn btn-warning"
-					style={{ margin: "auto", width: "30%" }}
+					style={{ margin: "auto", width: "40%", fontSize: "1rem" }}
 					onClick={() => setView("calendar")}
 				>
 					喝水情形
 				</button>
 				<button
 					className="btn btn-warning"
-					style={{ margin: "auto", width: "30%" }}
+					style={{ margin: "auto", width: "25%", fontSize: "1rem" }}
 					onClick={() => setView("setting")}
 				>
 					設定
 				</button>
 				<button
 					className="btn btn-warning"
-					style={{ margin: "auto", width: "30%" }}
+					style={{ margin: "auto", width: "25%", fontSize: "1rem" }}
 					onClick={() => {
 						setView("calendar");
 						setShowDrink(true);
