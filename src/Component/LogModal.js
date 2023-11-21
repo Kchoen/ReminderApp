@@ -39,8 +39,6 @@ function LogModal({
 			onHide={() => setShowLogModal(false)}
 			centered
 		>
-			<Modal.Header closeButton></Modal.Header>
-
 			<Tabs activeKey={activeTab} onSelect={(tab) => setActiveTab(tab)}>
 				<Tab eventKey="drink" title="飲水報告">
 					<Modal.Body>

@@ -66,3 +66,7 @@ code {
 .react-calendar__tile:enabled:focus {
 	border: 2px solid red;
 }
+.tab-content {
+	height: 35vh !important;
+	overflow: auto;
+}
