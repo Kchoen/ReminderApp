@@ -105,7 +105,7 @@ function App() {
 			<nav
 				className="navbar navbar-light"
 				style={{
-					height: "13%",
+					height: "10%",
 					display: "flex",
 					backgroundColor: "#e3f2fd",
 				}}
