@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CalendarForm from "./Component/Calendar";
 import SettingForm from "./Component/Setting";
 import DrinkInput from "./Component/DrinkInput";
+import { register } from "./serviceWorker.js";
 import sound from "./alarm.mp3";
 const alarm = new Audio(sound);
 function App() {
@@ -14,26 +15,18 @@ function App() {
 	const [cronOnTime, setCronOnTime] = useState(null);
 	const [cronOffTime, setCronOffTime] = useState(null);
 	const [intervalOn, setIntervalOn] = useState(false);
-	const [interval, setInterval] = useState(40);
+	const [inter, setInter] = useState(40);
 	const SettingStuff = {
 		cronOn: cronOn,
 		cronOnTime: cronOnTime,
 		cronOffTime: cronOffTime,
 		intervalOn: intervalOn,
-		interval: interval,
+		inter: inter,
 		setCronOn: setCronOn,
 		setCronOnTime: setCronOnTime,
 		setCronOffTime: setCronOffTime,
 		setIntervalOn: setIntervalOn,
-		setInterval: setInterval,
-	};
-	const packedstate = {
-		waterLog: waterLog,
-		cronOn: cronOn,
-		cronOnTime: cronOnTime,
-		cronOffTime: cronOffTime,
-		intervalOn: intervalOn,
-		interval: interval,
+		setInter: setInter,
 	};
 
 	// save state
@@ -51,16 +44,42 @@ function App() {
 		}
 	}, []);
 
-	// useEffect(() => {
-	// 	// Load drinks from localStorage on mount
-	// 	const storedwaterLog = JSON.parse(localStorage.getItem("waterLog"));
-	// 	if (storedwaterLog) setWaterLog(storedwaterLog);
-	// },{});
+	// set clock
+	useEffect(() => {
+		if (!intervalOn) return;
+		let setClock = setInterval(() => {
+			if (intervalOn) {
+				alarm.play();
+				alarm.loop = false;
+			}
+		}, 5 * 1000);
+		return () => clearInterval(setClock);
+	}, [intervalOn]);
+	useEffect(() => {
+		if (!cronOn) return;
+		let checkCron = setInterval(() => {
+			const curr = new Date();
+			console.log(
+				cronOffTime,
+				cronOffTime.getHours(),
+				cronOffTime.getMinutes()
+			);
+			if (
+				cronOffTime.getHours() === curr.getHours() &&
+				cronOffTime.getMinutes() === curr.getMinutes()
+			) {
+				setIntervalOn(false);
+			}
+			if (
+				cronOffTime.getHours() === curr.getHours() &&
+				cronOffTime.getMinutes() === curr.getMinutes()
+			) {
+				setIntervalOn(true);
+			}
+		}, 3 * 1000);
+		return () => clearInterval(checkCron);
+	}, [cronOn]);
 
-	// useEffect(() => {
-	// 	// Save drinks to localStorage on change
-	// 	localStorage.setItem("waterLog", JSON.stringify(waterLog));
-	// }, waterLog);
 	return (
 		<div
 			className="App"
@@ -73,7 +92,11 @@ function App() {
 			{/* Navigator part */}
 			<nav
 				className="navbar navbar-light"
-				style={{ display: "flex", backgroundColor: "#e3f2fd" }}
+				style={{
+					height: "10%",
+					display: "flex",
+					backgroundColor: "#e3f2fd",
+				}}
 			>
 				<button
 					className="btn btn-warning"
@@ -108,7 +131,7 @@ function App() {
 						display: "flex",
 						justifyContent: "center",
 						width: "100%",
-						height: "100%",
+						height: "90%",
 						margin: "auto",
 					}}
 				>

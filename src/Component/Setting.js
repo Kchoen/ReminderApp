@@ -15,12 +15,12 @@ function SettingForm({ SettingStuff }) {
 		cronOnTime,
 		cronOffTime,
 		intervalOn,
-		interval,
+		inter,
 		setCronOn,
 		setCronOnTime,
 		setCronOffTime,
 		setIntervalOn,
-		setInterval,
+		setInter,
 	} = SettingStuff;
 	const [showInterval, setShowInterval] = useState(false);
 	const [showCron, setShowCron] = useState(false);
@@ -111,6 +111,19 @@ function SettingForm({ SettingStuff }) {
 				<button //On/Off button
 					className="btn btn-info btn-sm"
 					onClick={() => {
+						if (cronOffTime == null || cronOnTime == null) {
+							toast.warn("排程時間錯誤", {
+								position: "top-center",
+								autoClose: 500,
+								hideProgressBar: true,
+								closeOnClick: true,
+								pauseOnHover: true,
+								draggable: true,
+								theme: "colored",
+								transition: Flip,
+							});
+							return;
+						}
 						if (cronOn) {
 							toast.error("排程關閉", {
 								position: "top-center",
@@ -174,19 +187,19 @@ function SettingForm({ SettingStuff }) {
 						<div className="mt-3 justify-content-center d-flex ">
 							<div className="text-center  me-3">
 								<LuAlarmClock size={110} />
-								<h3>{interval} 分鐘</h3>
+								<h3>{inter} 分鐘</h3>
 							</div>
 							<div className="text-center me-3 d-flex flex-column">
 								<Button
 									variant="link"
-									onClick={() => setInterval((q) => q + 5)}
+									onClick={() => setInter((q) => q + 5)}
 								>
 									<FaPlus size={65} />
 								</Button>
 								<Button
 									variant="link"
-									onClick={() => setInterval((q) => q - 5)}
-									disabled={interval <= 0}
+									onClick={() => setInter((q) => q - 5)}
+									disabled={inter <= 0}
 								>
 									<FaMinus size={65} />
 								</Button>
@@ -197,6 +210,7 @@ function SettingForm({ SettingStuff }) {
 							className="mt-5"
 							style={{ fontSize: "1.5em" }}
 							onClick={() => {
+								setIntervalOn(false);
 								setShowInterval(false);
 							}}
 						>
@@ -265,6 +279,7 @@ function SettingForm({ SettingStuff }) {
 								className="btn btn-primary btn-sm"
 								style={{ fontSize: "1.5em", width: "4em" }}
 								onClick={() => {
+									setCronOn(false);
 									setShowCron(false);
 								}}
 							>
