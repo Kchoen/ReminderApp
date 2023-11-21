@@ -102,11 +102,19 @@ function LogModal({
 								}}
 							/>
 						</h4>
-						<h4>
+						<h4
+							style={{
+								display: "flex",
+								alignItems: "flex-start",
+							}}
+						>
 							其他：
 							<textarea
 								rows={3}
-								style={{ fontSize: "1rem", width: "80%" }}
+								style={{
+									fontSize: "1rem",
+									width: "80%",
+								}}
 								value={temp.Others}
 								onChange={(e) => {
 									setTemp((prev) => {
