@@ -16,7 +16,7 @@ code {
 	width: 100vw;
 	background-color: #ff5e001e;
 	color: #222;
-	border-radius: 5px;
+	border-radius: 3px;
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 	font-family: cwTeXYen;
 }
@@ -54,7 +54,7 @@ code {
 
 .react-calendar__tile {
 	padding: 10px 6.6667px;
-	border-radius: 8px;
+	border-radius: 3px;
 	border-color: #1e539e2f;
 	justify-content: center;
 	font-size: 0.8rem;
