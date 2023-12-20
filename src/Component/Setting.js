@@ -21,6 +21,7 @@ function SettingForm({ SettingStuff }) {
 		setCronOffTime,
 		setIntervalOn,
 		setInter,
+		exportData,
 	} = SettingStuff;
 	const [showInterval, setShowInterval] = useState(false);
 	const [showCron, setShowCron] = useState(false);
@@ -159,6 +160,28 @@ function SettingForm({ SettingStuff }) {
 					}}
 				>
 					<LuCalendarClock color={cronOn ? "yellow" : "black"} />
+				</button>
+			</div>
+			<div // For export data
+				style={{
+					display: "flex",
+					justifyContent: "space-between",
+					width: "100%",
+					margin: "auto",
+					marginTop: "0.5em",
+				}}
+			>
+				<button //export button
+					className="btn btn-success btn-sm"
+					onClick={() => exportData()}
+					style={{
+						alignSelf: "flex-start",
+						fontSize: "1.5em",
+						width: "95%",
+						margin: "auto",
+					}}
+				>
+					匯出飲食資料
 				</button>
 			</div>
 			{/* Hidden Toast or Modal */}

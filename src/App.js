@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import CalendarForm from "./Component/Calendar";
 import SettingForm from "./Component/Setting";
 import DrinkInput from "./Component/DrinkInput";
-import { register } from "./serviceWorker.js";
+import { ToastContainer, toast } from "react-toastify";
+import { Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import sound from "./alarm.mp3";
 const alarm = new Audio(sound);
 function App() {
@@ -28,7 +30,74 @@ function App() {
 		setCronOffTime: setCronOffTime,
 		setIntervalOn: setIntervalOn,
 		setInter: setInter,
+		exportData: exportData,
 	};
+	function exportData() {
+		// create csv data
+		let csvRows = [];
+		// Merge Header
+		const headers = Array.from(
+			new Set(Object.keys(waterLog).concat(Object.keys(foodLog)))
+		);
+		csvRows.push(headers.join(","));
+		// waterLog
+		let waterRow = ["飲水量"];
+		headers.forEach((head) => {
+			waterRow.push(
+				waterLog[head]?.reduce((total, v) => {
+					return total + v.amount;
+				}, 0)
+			);
+		});
+		csvRows.push(waterRow.join(","));
+		// foodLog
+		let foodRow = ["早餐"];
+		// foodLog---(Morning)
+		headers.forEach((head) => {
+			foodRow.push(foodLog[head]?.Morning);
+		});
+		csvRows.push(foodRow);
+		foodRow = ["午餐"];
+		// foodLog---(Lunch)
+		headers.forEach((head) => {
+			foodRow.push(foodLog[head]?.Lunch);
+		});
+		csvRows.push(foodRow);
+		foodRow = ["晚餐"];
+		// foodLog---(Diner)
+		headers.forEach((head) => {
+			foodRow.push(foodLog[head]?.Diner);
+		});
+		csvRows.push(foodRow);
+		foodRow = ["其他"];
+		// foodLog---(Others)
+		headers.forEach((head) => {
+			foodRow.push(foodLog[head]?.Others);
+		});
+		csvRows.push(foodRow);
+		console.log(foodLog);
+		console.log(csvRows);
+		csvRows[0] = ["日期"].concat(csvRows[0]);
+		csvRows = csvRows.join("\n");
+
+		const blob = new Blob([csvRows], { type: "text/csv" });
+
+		const url = window.URL.createObjectURL(blob);
+		const a = document.createElement("a");
+		a.setAttribute("href", url);
+		a.setAttribute("download", "download.csv");
+		a.click();
+		toast.success("匯出飲食資料...", {
+			position: "top-center",
+			autoClose: 500,
+			hideProgressBar: true,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			theme: "colored",
+			transition: Flip,
+		});
+	}
 
 	// save state
 	useEffect(() => {
