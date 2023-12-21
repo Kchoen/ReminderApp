@@ -45,9 +45,10 @@ function LogModal({
 		const imageCapture = new ImageCapture(videoRef.current);
 		let photo = await imageCapture.takePhoto(); // Take a picture
 		let blob = await photo.blob(); // Get the image data as a blob
-
 		let imageObjectURL = URL.createObjectURL(blob);
 		setImage(imageObjectURL);
+		alert(image);
+		alert(blob);
 	};
 
 	const drawImageToCanvas = () => {
