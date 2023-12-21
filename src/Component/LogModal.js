@@ -1,5 +1,5 @@
 import { Modal, Button } from "react-bootstrap";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 
@@ -12,10 +12,27 @@ function LogModal({
 	setTemp,
 	setFoodLog,
 }) {
+	const [hasCameraPermission, setHasCameraPermission] = useState(false);
+
 	const [activeTab, setActiveTab] = useState("drink");
 	const [image, setImage] = useState(null);
+
 	const canvasRef = useRef(null);
 	const videoRef = useRef(null);
+
+	useEffect(() => {
+		// Request camera permission
+		navigator.mediaDevices
+			.getUserMedia({ video: true })
+			.then((stream) => {
+				videoRef.current.srcObject = stream;
+				setHasCameraPermission(true);
+			})
+			.catch((error) => {
+				alert("無法使用相機");
+				setHasCameraPermission(false);
+			});
+	}, []);
 
 	const captureImage = async () => {
 		const imageCapture = new ImageCapture(videoRef.current);
