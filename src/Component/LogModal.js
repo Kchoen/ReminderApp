@@ -23,7 +23,12 @@ function LogModal({
 	useEffect(() => {
 		// Request camera permission
 		navigator.mediaDevices
-			.getUserMedia({ video: true })
+			.getUserMedia({
+				audio: true,
+				video: {
+					facingMode: { exact: "environment" },
+				},
+			})
 			.then((stream) => {
 				videoRef.current.srcObject = stream;
 				setHasCameraPermission(true);
