@@ -30,7 +30,9 @@ function LogModal({
 				},
 			})
 			.then((stream) => {
-				videoRef.current.srcObject = stream;
+				videoRef.current = stream;
+				alert(stream);
+				alert(videoRef);
 				setHasCameraPermission(true);
 			})
 			.catch((error) => {
