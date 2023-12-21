@@ -1,5 +1,5 @@
 import { Modal, Button } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 
@@ -13,7 +13,27 @@ function LogModal({
 	setFoodLog,
 }) {
 	const [activeTab, setActiveTab] = useState("drink");
+	const [image, setImage] = useState(null);
+	const canvasRef = useRef(null);
+	const videoRef = useRef(null);
 
+	const captureImage = async () => {
+		const imageCapture = new ImageCapture(videoRef.current);
+		let photo = await imageCapture.takePhoto(); // Take a picture
+		let blob = await photo.blob(); // Get the image data as a blob
+
+		let imageObjectURL = URL.createObjectURL(blob);
+		setImage(imageObjectURL);
+	};
+
+	const drawImageToCanvas = () => {
+		const ctx = canvasRef.current.getContext("2d");
+		const img = new Image();
+		img.onload = () => {
+			ctx.drawImage(img, 0, 0);
+		};
+		img.src = image;
+	};
 	const waterReport = waterLog[logDate] ? waterLog[logDate] : [];
 	const total =
 		waterReport?.reduce((tot, entry) => {
@@ -124,6 +144,27 @@ function LogModal({
 								}}
 							/>
 							{""}
+						</h4>
+					</Modal.Body>
+				</Tab>
+				<Tab eventKey="picture" title="拍照記錄">
+					<Modal.Body>
+						<Button variant="success" onClick={captureImage}>
+							拍照
+						</Button>
+						<h4>
+							<video ref={videoRef}></video>
+							<canvas
+								ref={canvasRef}
+								width={320}
+								height={240}
+							></canvas>
+
+							{image && (
+								<button onClick={drawImageToCanvas}>
+									Draw To Canvas
+								</button>
+							)}
 						</h4>
 					</Modal.Body>
 				</Tab>
