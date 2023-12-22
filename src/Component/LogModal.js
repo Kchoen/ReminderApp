@@ -2,6 +2,7 @@ import { Modal, Button } from "react-bootstrap";
 import { useState, useRef, useEffect } from "react";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
+import camera from "./Camera";
 
 function LogModal({
 	showLogModal,
@@ -12,55 +13,8 @@ function LogModal({
 	setTemp,
 	setFoodLog,
 }) {
-	const [hasCameraPermission, setHasCameraPermission] = useState(false);
-
 	const [activeTab, setActiveTab] = useState("drink");
-	const [image, setImage] = useState(null);
 
-	const canvasRef = useRef(null);
-	const videoRef = useRef(null);
-
-	useEffect(() => {
-		// Request camera permission
-		navigator.mediaDevices
-			.getUserMedia({
-				audio: true,
-				video: {
-					facingMode: { exact: "environment" },
-				},
-			})
-			.then((stream) => {
-				videoRef.current = stream;
-				alert(stream);
-				alert(videoRef);
-				setHasCameraPermission(true);
-			})
-			.catch((error) => {
-				alert("無法使用相機");
-				setHasCameraPermission(false);
-			});
-	}, []);
-
-	const captureImage = async () => {
-		alert("captureImage");
-		const imageCapture = new ImageCapture(videoRef.current);
-		alert("finished capturing image");
-		let photo = await imageCapture.takePhoto(); // Take a picture
-		let blob = await photo.blob(); // Get the image data as a blob
-		let imageObjectURL = URL.createObjectURL(blob);
-		setImage(imageObjectURL);
-		alert(image);
-		alert(blob);
-	};
-
-	const drawImageToCanvas = () => {
-		const ctx = canvasRef.current.getContext("2d");
-		const img = new Image();
-		img.onload = () => {
-			ctx.drawImage(img, 0, 0);
-		};
-		img.src = image;
-	};
 	const waterReport = waterLog[logDate] ? waterLog[logDate] : [];
 	const total =
 		waterReport?.reduce((tot, entry) => {
@@ -176,22 +130,16 @@ function LogModal({
 				</Tab>
 				<Tab eventKey="picture" title="拍照記錄">
 					<Modal.Body>
-						<Button variant="success" onClick={captureImage}>
+						<Button
+							variant="success"
+							onClick={camera.startCamera()}
+						>
 							拍照
 						</Button>
 						<h4>
-							<video ref={videoRef}></video>
-							<canvas
-								ref={canvasRef}
-								width={320}
-								height={240}
-							></canvas>
-
-							{image && (
-								<button onClick={drawImageToCanvas}>
-									Draw To Canvas
-								</button>
-							)}
+							<button onClick={camera.takeSnapshot()}>
+								儲存
+							</button>
 						</h4>
 					</Modal.Body>
 				</Tab>
