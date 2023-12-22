@@ -20,22 +20,21 @@ const camera = (function () {
 	return {
 		video: null,
 		context: null,
-		canvas: null,
 
 		startCamera: function () {
 			if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 				this.video = document.getElementById("video");
-				this.canvas = document.getElementById("canvas");
-				this.context = this.canvas?.getContext("2d");
-
-				(function (video) {
-					navigator.mediaDevices
-						.getUserMedia({ video: { exact: "environment" } })
-						.then(function (stream) {
-							video.srcObject = stream;
-							video.play();
-						});
-				})(this.video);
+				this.context = document
+					.getElementById("canvas")
+					?.getContext("2d");
+				navigator.mediaDevices
+					.getUserMedia({
+						video: { facingMode: { exact: "environment" } },
+					})
+					.then(function (stream) {
+						this.video.srcObject = stream;
+						this.video.play();
+					});
 			}
 		},
 
