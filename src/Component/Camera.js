@@ -28,14 +28,14 @@ const camera = (function () {
 				this.canvas = document.getElementById("canvas");
 				this.context = this.canvas?.getContext("2d");
 
-				// (function (video) {
-				// 	navigator.mediaDevices
-				// 		.getUserMedia({ video: { exact: "environment" } })
-				// 		.then(function (stream) {
-				// 			video.srcObject = stream;
-				// 			video.play();
-				// 		});
-				// })(this.video);
+				(function (video) {
+					navigator.mediaDevices
+						.getUserMedia({ video: { exact: "environment" } })
+						.then(function (stream) {
+							video.srcObject = stream;
+							video.play();
+						});
+				})(this.video);
 			}
 		},
 
