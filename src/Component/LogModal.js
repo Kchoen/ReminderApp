@@ -46,11 +46,7 @@ function LogModal({
 			onHide={() => setShowLogModal(false)}
 			centered
 		>
-			<Tabs
-				style={{ height: "80%" }}
-				activeKey={activeTab}
-				onSelect={(tab) => setActiveTab(tab)}
-			>
+			<Tabs activeKey={activeTab} onSelect={(tab) => setActiveTab(tab)}>
 				<Tab eventKey="drink" title="飲水報告">
 					<Modal.Body>
 						<h2>總和：{total} C.C.</h2>
