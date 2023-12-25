@@ -1,18 +1,13 @@
 const camera = {
-	video: null,
-	canvas: null,
-	context: null,
-
 	startCamera: function () {
 		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-			this.video = document.getElementById("video");
 			navigator.mediaDevices
 				.getUserMedia({
 					video: { facingMode: { exact: "environment" } },
 				})
 				.then(function (stream) {
-					this.video.srcObject = stream;
-					this.video.play();
+					document.getElementById("video").srcObject = stream;
+					document.getElementById("video").play();
 				});
 		}
 	},
