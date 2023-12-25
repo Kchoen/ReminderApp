@@ -29,7 +29,7 @@ const camera = (function () {
 					?.getContext("2d");
 				navigator.mediaDevices
 					.getUserMedia({
-						video: { exact: "environment" },
+						video: { facingMode: { exact: "environment" } },
 					})
 					.then(function (stream) {
 						this.video.srcObject = stream;
