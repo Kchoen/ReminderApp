@@ -16,13 +16,7 @@ const camera = {
 		document
 			.getElementById("canvas")
 			?.getContext("2d")
-			?.drawImage(
-				document.getElementById("video"),
-				0,
-				0,
-				document.getElementById("video").width,
-				document.getElementById("video").height
-			);
+			?.drawImage(document.getElementById("video"), 0, 0, 600, 600);
 	},
 	reload: function () {
 		this.video = document.getElementById("video");
