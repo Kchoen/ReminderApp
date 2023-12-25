@@ -33,6 +33,7 @@ const camera = (function () {
 						video: { facingMode: { exact: "environment" } },
 					})
 					.then(function (stream) {
+						alert(stream);
 						this.video.srcObject = stream;
 						this.video.play();
 					});

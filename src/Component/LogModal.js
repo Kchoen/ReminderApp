@@ -134,7 +134,7 @@ function LogModal({
 							拍照
 						</Button>
 						<Button onClick={camera.takeSnapshot}>儲存</Button>
-						<video id="video" width="80%"></video>
+						<video id="video" autoPlay="true" width="80%"></video>
 						<canvas id="canvas" width="80%"></canvas>
 					</Modal.Body>
 				</Tab>
