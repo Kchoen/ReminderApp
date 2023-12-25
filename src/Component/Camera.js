@@ -37,10 +37,12 @@ const camera = (function () {
 						this.video.play();
 					});
 			}
+			alert("startingCamera:", this);
 		},
 
 		takeSnapshot: function () {
 			this.context?.drawImage(this.video, 0, 0, width, height);
+			alert("snapping:", this);
 		},
 	};
 })();
