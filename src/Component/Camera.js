@@ -19,6 +19,7 @@ const camera = (function () {
 
 	return {
 		video: null,
+		canvas: null,
 		context: null,
 
 		startCamera: function () {
