@@ -37,8 +37,8 @@ function LogModal({
 	const startCamera = () => {
 		camera.startCamera();
 	};
-	const reloadCamera = () => {
-		camera.reload();
+	const snapShot = () => {
+		camera.takeSnapshot();
 	};
 	return (
 		<Modal
@@ -137,9 +137,9 @@ function LogModal({
 				<Tab eventKey="picture" title="拍照記錄">
 					<Modal.Body>
 						<Button variant="success" onClick={startCamera}>
-							拍照
+							開啟相機
 						</Button>
-						<Button onClick={reloadCamera}>儲存</Button>
+						<Button onClick={snapShot}>拍照</Button>
 						<video id="video" autoPlay={true} width="80%"></video>
 						<canvas id="canvas" width="80%"></canvas>
 					</Modal.Body>
