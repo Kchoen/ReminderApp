@@ -130,13 +130,10 @@ function LogModal({
 				</Tab>
 				<Tab eventKey="picture" title="拍照記錄">
 					<Modal.Body>
-						<Button
-							variant="success"
-							onClick={camera.startCamera()}
-						>
+						<Button variant="success" onClick={camera.startCamera}>
 							拍照
 						</Button>
-						<Button onClick={camera.takeSnapshot()}>儲存</Button>
+						<Button onClick={camera.takeSnapshot}>儲存</Button>
 						<video id="video" width="80%"></video>
 						<canvas id="canvas" width="80%"></canvas>
 					</Modal.Body>
