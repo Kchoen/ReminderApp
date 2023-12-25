@@ -140,7 +140,7 @@ function LogModal({
 							開啟相機
 						</Button>
 						<Button onClick={snapShot}>拍照</Button>
-						<video id="video" autoPlay={true} width="80%"></video>
+						<video id="video" width="80%"></video>
 						<canvas id="canvas" width="80%"></canvas>
 					</Modal.Body>
 				</Tab>
