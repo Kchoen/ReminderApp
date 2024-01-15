@@ -19,12 +19,14 @@ function App() {
 	const [cronOffTime, setCronOffTime] = useState(null);
 	const [intervalOn, setIntervalOn] = useState(false);
 	const [inter, setInter] = useState(40);
+	const [ringTime, setRingTime] = useState(Date.now());
 	const SettingStuff = {
 		cronOn: cronOn,
 		cronOnTime: cronOnTime,
 		cronOffTime: cronOffTime,
 		intervalOn: intervalOn,
 		inter: inter,
+		ringTime: ringTime,
 		setCronOn: setCronOn,
 		setCronOnTime: setCronOnTime,
 		setCronOffTime: setCronOffTime,
@@ -32,52 +34,78 @@ function App() {
 		setInter: setInter,
 		exportData: exportData,
 	};
+	function chunk(arr, size) {
+		const chunks = [];
+		let i = 0;
+
+		while (i < arr.length) {
+			chunks.push(arr.slice(i, i + size));
+			i += size;
+		}
+
+		return chunks;
+	}
 	function exportData() {
 		// create csv data
 		let csvRows = [];
 		// Merge Header
-		const headers = Array.from(
+		const fullheader = Array.from(
 			new Set(Object.keys(waterLog).concat(Object.keys(foodLog)))
 		);
-		csvRows.push(headers.join(","));
-		// waterLog
-		let waterRow = ["飲水量"];
-		headers.forEach((head) => {
-			waterRow.push(
-				waterLog[head]?.reduce((total, v) => {
-					return total + v.amount;
-				}, 0)
-			);
+		fullheader.sort(function (a, b) {
+			if (new Date(a) > new Date(b)) {
+				return 1;
+			}
+			if (new Date(a) < new Date(b)) {
+				return -1;
+			}
+			// a must be equal to b
+			return 0;
 		});
-		csvRows.push(waterRow.join(","));
-		// foodLog
-		let foodRow = ["早餐"];
-		// foodLog---(Morning)
-		headers.forEach((head) => {
-			foodRow.push(foodLog[head]?.Morning);
+		let splitheaders = chunk(fullheader, 7);
+		let cnt = 0;
+		splitheaders.forEach((headers) => {
+			csvRows.push(headers.join(","));
+			// waterLog
+			let waterRow = ["飲水量"];
+			headers.forEach((head) => {
+				waterRow.push(
+					waterLog[head]?.reduce((total, v) => {
+						return total + v.amount;
+					}, 0)
+				);
+			});
+			csvRows.push(waterRow.join(","));
+			// foodLog
+			let foodRow = ["早餐"];
+			// foodLog---(Morning)
+			headers.forEach((head) => {
+				foodRow.push(foodLog[head]?.Morning);
+			});
+			csvRows.push(foodRow);
+			foodRow = ["午餐"];
+			// foodLog---(Lunch)
+			headers.forEach((head) => {
+				foodRow.push(foodLog[head]?.Lunch);
+			});
+			csvRows.push(foodRow);
+			foodRow = ["晚餐"];
+			// foodLog---(Diner)
+			headers.forEach((head) => {
+				foodRow.push(foodLog[head]?.Diner);
+			});
+			csvRows.push(foodRow);
+			foodRow = ["其他"];
+			// foodLog---(Others)
+			headers.forEach((head) => {
+				foodRow.push(foodLog[head]?.Others);
+			});
+			csvRows.push(foodRow);
+			csvRows[cnt] = ["日期"].concat(csvRows[cnt]);
+			csvRows.push(["", "", "", "", "", "", "", ""]);
+			cnt += 7;
 		});
-		csvRows.push(foodRow);
-		foodRow = ["午餐"];
-		// foodLog---(Lunch)
-		headers.forEach((head) => {
-			foodRow.push(foodLog[head]?.Lunch);
-		});
-		csvRows.push(foodRow);
-		foodRow = ["晚餐"];
-		// foodLog---(Diner)
-		headers.forEach((head) => {
-			foodRow.push(foodLog[head]?.Diner);
-		});
-		csvRows.push(foodRow);
-		foodRow = ["其他"];
-		// foodLog---(Others)
-		headers.forEach((head) => {
-			foodRow.push(foodLog[head]?.Others);
-		});
-		csvRows.push(foodRow);
-		console.log(foodLog);
-		console.log(csvRows);
-		csvRows[0] = ["日期"].concat(csvRows[0]);
+
 		csvRows = csvRows.join("\n");
 
 		const blob = new Blob([csvRows], { type: "text/csv" });
@@ -134,17 +162,13 @@ function App() {
 				alarm.loop = false;
 			}
 		}, inter * 60 * 1000);
+		setRingTime(Date.now() + inter * 60 * 1000);
 		return () => clearInterval(setClock);
 	}, [intervalOn]);
 	useEffect(() => {
 		if (!cronOn) return;
 		let checkCron = setInterval(() => {
 			const curr = new Date();
-			console.log(
-				cronOffTime,
-				cronOffTime.getHours(),
-				cronOffTime.getMinutes()
-			);
 			if (
 				cronOffTime.getHours() === curr.getHours() &&
 				cronOffTime.getMinutes() === curr.getMinutes()

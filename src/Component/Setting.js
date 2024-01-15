@@ -16,6 +16,7 @@ function SettingForm({ SettingStuff }) {
 		cronOffTime,
 		intervalOn,
 		inter,
+		ringTime,
 		setCronOn,
 		setCronOnTime,
 		setCronOffTime,
@@ -28,6 +29,16 @@ function SettingForm({ SettingStuff }) {
 
 	return (
 		<>
+			<h4
+				style={{
+					alignSelf: "flex-start",
+					fontSize: "1.5em",
+					width: "95%",
+					margin: "auto",
+				}}
+			>
+				下次鬧鈴：{new Date(ringTime).toLocaleTimeString()}
+			</h4>
 			<div // For setting the clock Interval
 				style={{
 					display: "flex",
@@ -162,6 +173,15 @@ function SettingForm({ SettingStuff }) {
 					<LuCalendarClock color={cronOn ? "yellow" : "black"} />
 				</button>
 			</div>
+			<div // For export data
+				style={{
+					display: "flex",
+					justifyContent: "space-between",
+					width: "100%",
+					margin: "auto",
+					marginTop: "0.5em",
+				}}
+			></div>
 			<div // For export data
 				style={{
 					display: "flex",
