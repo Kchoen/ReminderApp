@@ -160,6 +160,7 @@ function App() {
 			if (intervalOn) {
 				alarm.play();
 				alarm.loop = false;
+				setRingTime(Date.now() + inter * 60 * 1000);
 			}
 		}, inter * 60 * 1000);
 		setRingTime(Date.now() + inter * 60 * 1000);
